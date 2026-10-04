@@ -52,7 +52,7 @@ If you need something installable and supported, this is not it.
 
 ## License
 
-GPLv2 or later — the same license as WordPress itself.
+Apache License 2.0 — permissive, **commercial use permitted**, trademark rights not granted. See [LICENSE](LICENSE).
 
 ---
 
