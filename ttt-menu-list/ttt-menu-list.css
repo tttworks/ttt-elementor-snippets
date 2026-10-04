@@ -1,0 +1,96 @@
+/**
+ * ============================================
+ * TTT Simple List from Menu - CSS 样式
+ * ============================================
+ *
+ * @version     1.0.0
+ * @date        2026-06-27
+ * @author      Aloysius Luo
+ * @organization TTTWORKS
+ * @contact     https://tttworks.com
+ * @description 菜单链接列表组件 CSS — 横竖排列、文字样式、响应式
+ *
+ * --------------------------------------------
+ * 版本更新日志
+ * --------------------------------------------
+ * v1.0.0 (2026-06-27)
+ *   [新] 初始版本
+ * ============================================
+ */
+
+add_action( 'wp_head', function() {
+?>
+<style>
+
+/* ═══ Wrapper ═══ */
+.zml-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* ═══ Item ═══ */
+.zml-item {
+    display: block;
+    padding: 4px 0;
+    text-align: left;
+}
+
+/* ═══ Link ═══ */
+.zml-link {
+    display: inline-block;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #333333;
+    text-decoration: none;
+    transition: color 0.25s ease, text-decoration-color 0.25s ease;
+    cursor: pointer;
+    word-break: break-word;
+}
+
+.zml-link:hover {
+    color: #0073aa;
+    text-decoration: underline;
+}
+
+.zml-link:focus-visible {
+    outline: 2px solid #0073aa;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ═══ Tablet ═══ */
+@media (max-width: 1024px) {
+    .zml-wrapper {
+        gap: 10px;
+    }
+
+    .zml-link {
+        font-size: 15px;
+    }
+}
+
+/* ═══ Mobile ═══ */
+@media (max-width: 767px) {
+    .zml-wrapper {
+        gap: 8px;
+    }
+
+    .zml-link {
+        font-size: 14px;
+        line-height: 1.4;
+    }
+
+    .zml-item {
+        padding: 3px 0;
+    }
+}
+
+</style>
+<?php
+} );

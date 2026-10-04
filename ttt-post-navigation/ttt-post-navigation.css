@@ -1,0 +1,108 @@
+/**
+ * ============================================
+ * TTT Post Navigation - CSS样式
+ * ============================================
+ *
+ * @version     1.2.0
+ * @date        2026-06-25
+ * @author      Aloysius Luo
+ * @organization TTTWORKS
+ * @contact     https://tttworks.com
+ * @description 文章导航组件样式
+ *
+ * --------------------------------------------
+ * 版本更新日志
+ * --------------------------------------------
+ * v1.2.0 (2026-06-25)
+ *   [改] 修正为正确的行式布局结构
+ * --------------------------------------------
+ */
+
+add_action('wp_head', function() {
+?>
+<style>
+/* TTT Post Navigation Styles */
+.zpn-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.zpn-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.zpn-label {
+    color: #999999;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 1.2em;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.zpn-link {
+    color: #333333;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 1.3em;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block;
+}
+
+.zpn-link:hover {
+    color: #59A498;
+    text-decoration: underline;
+}
+
+/* 响应式 - Tablet */
+@media screen and (max-width: 1024px) {
+    .zpn-navigation {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .zpn-row {
+        gap: 12px;
+    }
+
+    .zpn-label {
+        width: 80px;
+        font-size: 11px;
+    }
+
+    .zpn-link {
+        font-size: 15px;
+    }
+}
+
+/* 响应式 - Mobile */
+@media screen and (max-width: 767px) {
+    .zpn-navigation {
+        gap: 12px;
+        padding: 12px;
+    }
+
+    .zpn-row {
+        gap: 10px;
+    }
+
+    .zpn-label {
+        width: 60px;
+        font-size: 10px;
+    }
+
+    .zpn-link {
+        font-size: 14px;
+    }
+}
+</style>
+<?php
+} );

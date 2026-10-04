@@ -1,0 +1,209 @@
+<?php
+/**
+ * ============================================
+ * TTT Category Tabs - CSS样式
+ * ============================================
+ *
+ * @version     1.0.3
+ * @date        2026-06-29
+ * @author      Aloysius Luo
+ * @organization TTTWORKS
+ * @contact     https://tttworks.com
+ * @description 应用 Pill Strip 视觉方案：heading 胶囊容器 + 按钮胶囊化 + 响应式 grid 布局
+ *
+ * --------------------------------------------
+ * 版本更新日志
+ * --------------------------------------------
+ * v1.0.3 (2026-06-29)
+ *   [改] heading 增加 width:fit-content + margin:0 auto 实现内容自适应居中
+ *   [改] 移除 [aria-selected="false"] 的显式背景（改为透明依赖胶囊条底色），消除与 :hover/.is-active 的 !important 冲突
+ *   [改] 按钮所有分辨率下统一 justify-content:center + text-align:center
+ *   [修] ≤767px mobile 补充按钮默认背景 #F7F8FA
+ * v1.0.2 (2026-06-29)
+ *   [改] heading 容器改为胶囊条（Pill Strip）：圆角50px + #F7F8FA背景 + 5px内边距
+ *   [改] 按钮统一高度58px、字号16px、行高20px、transition:none（即时切换）
+ *   [改] 未选中按钮背景与胶囊条融合（#F7F8FA），选中/悬停按钮浮起为实心胶囊
+ *   [改] 响应式断点细化：新增1201px和1155px中间断点
+ *   [改] ≤1155px 时 heading 改为 2列 grid 布局，背景透明化
+ *   [改] ≤767px 手机端按钮高度42px、字号12px
+ * v1.0.1 (2026-06-22)
+ *   [修] 修复 Hello Biz 主题 :focus/:active 背景色闪烁问题
+ *   [改] 移动端容器改为纵向排列
+ * v1.0.0 (2026-06-22)
+ *   [新] 初始版本
+ * --------------------------------------------
+ */
+
+add_action('wp_head', function() {
+?>
+<style>
+/* TTT Category Tabs Styles — Pill Strip 视觉方案 */
+
+/* ---- Pill Strip 容器 ---- */
+.ttt-tabs-heading {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
+    border-radius: 50px;
+    background: #F7F8FA;
+    padding: 5px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.ttt-tabs-heading::-webkit-scrollbar {
+    display: none;
+}
+
+/* ---- 按钮基础样式 ---- */
+.ttt-tab-title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    justify-content: center;
+    text-align: center;
+    border-radius: 50px;
+    height: 58px;
+    padding: 10px 25px;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    cursor: pointer;
+    border: 0;
+    box-shadow: none;
+    outline: none;
+    transition: none;
+}
+
+.ttt-tab-title a {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 20px;
+    display: block;
+    text-decoration: none;
+    transition: none;
+}
+
+/* ---- 悬停状态 ---- */
+.ttt-tab-title:hover {
+    border-radius: 50px;
+    color: #FFFFFF !important;
+    background: #59A498 !important;
+    cursor: pointer;
+}
+
+.ttt-tab-title:hover a {
+    color: #FFFFFF !important;
+}
+
+/* ---- Focus 状态（键盘导航） ---- */
+.ttt-tab-title:focus {
+    background: #F7F8FA !important;
+    color: #333333 !important;
+    outline: 2px solid #59A498;
+    outline-offset: 2px;
+}
+
+.ttt-tab-title:focus a {
+    color: #333333 !important;
+}
+
+/* ---- Active 状态（点击瞬间） ---- */
+.ttt-tab-title:active {
+    background: #F7F8FA !important;
+    color: #333333 !important;
+}
+
+.ttt-tab-title:active a {
+    color: #333333 !important;
+}
+
+/* ---- 当前分类选中状态 ---- */
+.ttt-tab-title.is-active {
+    border-radius: 50px;
+    color: #FFFFFF !important;
+    background: #59A498 !important;
+    cursor: pointer;
+}
+
+.ttt-tab-title.is-active a {
+    color: #FFFFFF !important;
+}
+
+/* ================================================================
+   响应式
+   ================================================================ */
+
+/* Laptop (≤1201px) — 仅调整按钮内边距 */
+@media screen and (max-width: 1201px) {
+    .ttt-tab-title {
+        padding: 10px 25px;
+    }
+}
+
+/* Small Notebook / 紧凑布局 (≤1155px) — heading 切换为 2列 grid */
+@media screen and (max-width: 1155px) {
+    .ttt-tabs-heading {
+        background: none;
+        display: grid !important;
+        width: auto !important;
+        padding: 0px !important;
+        border-radius: 0;
+        gap: 5px;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .ttt-tab-title {
+        background: #F7F8FA;
+        border-radius: 50px !important;
+        padding: 10px 15px;
+        height: 58px !important;
+    }
+
+    .ttt-tab-title a {
+        font-size: 16px !important;
+    }
+}
+
+/* Tablet (≤1024px) — 缩小字号 */
+@media screen and (max-width: 1024px) {
+    .ttt-tab-title {
+        font-size: 14px;
+    }
+
+    .ttt-tab-title a {
+        font-size: 14px !important;
+    }
+}
+
+/* Phone (≤767px) — 保持 2列 grid，缩小按钮高度和字号 */
+@media screen and (max-width: 767px) {
+    .ttt-tabs-heading {
+        width: 100% !important;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px !important;
+    }
+
+    .ttt-tab-title {
+        background: #F7F8FA;
+        border-radius: 50px !important;
+        padding: 10px 0px;
+        height: 32px !important;
+        font-size: 12px;
+    }
+
+    .ttt-tab-title a {
+        font-size: 12px !important;
+        line-height: 1em !important;
+    }
+}
+</style>
+<?php
+} );

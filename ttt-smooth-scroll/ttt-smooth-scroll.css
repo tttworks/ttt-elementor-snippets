@@ -1,0 +1,44 @@
+/**
+ * ============================================
+ * TTT Smooth Scroll — CSS 样式
+ * ============================================
+ *
+ * @version     1.0.0
+ * @date        2026-06-30
+ * @author      Aloysius Luo
+ * @organization TTTWORKS
+ * @contact     https://tttworks.com
+ * @description 中键拖拽光标 + 覆盖主题 scroll-behavior
+ *
+ * --------------------------------------------
+ * 版本更新日志
+ * --------------------------------------------
+ * v1.0.0 (2026-06-30)
+ *   [新] 首次发布 — 基础样式
+ */
+
+add_action('wp_head', function () {
+    ?>
+<style id="zss-base-style">
+/* TTT Smooth Scroll — 基础样式 */
+
+/* 覆盖主题/插件可能设置的 scroll-behavior，防止与 lerp 插值叠加 */
+html {
+    scroll-behavior: auto !important;
+}
+
+/* 中键拖拽时全局光标变 ns-resize */
+html.zss-mid-dragging,
+html.zss-mid-dragging * {
+    cursor: ns-resize !important;
+}
+
+/* 无障碍：系统开启动效减弱时不强制覆盖（尊重用户系统设置） */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto !important;
+    }
+}
+</style>
+<?php
+});

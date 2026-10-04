@@ -1,0 +1,133 @@
+/**
+ * SCF Features Accordion - CSS Styles
+ * 描述: SCF 手风琴样式
+ * 版本: 1.3.1
+ * 日期: 2026-05-11
+ *
+ * 变更记录:
+ * v1.3.1: 默认展开项的 content 直接设置 max-height: 2000px，页面加载即完全展开
+ * v1.3.0: 类名前缀改为 scf-features-accordion
+ */
+
+add_action('wp_head', 'scf_features_accordion_styles');
+add_action('elementor/preview/enqueue_styles', 'scf_features_accordion_styles');
+
+function scf_features_accordion_styles() {
+    static $printed = false;
+    if ($printed) return;
+    $printed = true;
+    ?>
+    <style id="scf-features-accordion-css">
+        .scf-features-accordion {
+            font-family: inherit;
+        }
+
+        .scf-features-accordion-item {
+            border: 0;
+            border-radius: 0;
+            margin-bottom: 5px;
+            background-color: #f3f3f5;
+        }
+
+        .scf-features-accordion-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            cursor: pointer;
+            background: #f3f3f5;
+            font-weight: 600;
+            list-style: none;
+            transition: background-color 0.3s ease;
+			font-family: "Montserrat", Sans-serif;
+        }
+
+        .scf-features-accordion-title::-webkit-details-marker {
+            display: none;
+        }
+
+        .scf-features-accordion-title:hover {
+//             background: #f9f9f9;
+        }
+
+        .scf-features-accordion-title-text {
+            font-size: 18px;
+            line-height: 1.5;
+            color: #666;
+			font-weight:normal;
+        }
+				.scf-features-accordion-item[open] .scf-features-accordion-title-text {
+					color:#EA5718;
+				 }
+        .scf-features-accordion-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 24px;
+            height: 24px;
+            color: #555;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .scf-features-accordion-icon svg {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .scf-features-accordion-icon .scf-features-accordion-icon-opened {
+            display: none;
+        }
+        .scf-features-accordion-icon .scf-features-accordion-icon-closed {
+            display: block;
+        }
+
+        .scf-features-accordion-item[open] .scf-features-accordion-icon .scf-features-accordion-icon-opened {
+            display: block;
+        }
+        .scf-features-accordion-item[open] .scf-features-accordion-icon .scf-features-accordion-icon-closed {
+            display: none;
+        }
+	
+	.scf-features-accordion-item[open] .scf-features-accordion-icon .scf-features-accordion-icon-opened svg{
+            fill:#EA5718
+        }
+
+        .scf-features-accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+            opacity: 0;
+            background: #f3f3f5;
+            border-top: 0!important;
+			
+        }
+	.scf-features-accordion-content .elementor-widget-text-editor{
+		color:#666;
+		font-size:16px;
+		font-weight:normal;
+		line-height:1.5;
+		font-family: "Montserrat", Sans-serif;
+	}
+
+        .scf-features-accordion-item[open] .scf-features-accordion-content {
+            max-height: 2000px;
+            opacity: 1;
+            border-top-color: transparent;
+			padding:0 20px 20px 20px;
+        }
+
+	.scf-features-accordion-content > .elementor-element{
+		padding:0;
+	}
+        .scf-features-accordion-content .elementor-widget-container {
+            padding: 0;
+        }
+
+        .scf-features-accordion-item[open] .scf-features-accordion-content .elementor-widget-container {
+            padding: 20px 0 0 0;
+			border-top: 1px solid #ddd;
+        }
+    </style>
+    <?php
+}

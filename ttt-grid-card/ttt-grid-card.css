@@ -1,0 +1,115 @@
+/**
+ * Snippet Name: Z Grid Card - CSS
+ *
+ * v1.4  2026-04-12
+ *   [修] .zgc-img-wrap 加 CSS 兜底 aspect-ratio: 83/89
+ *        配合 JS v1.2 的高度修正，双保险防止移动端重叠
+ * v1.3  2026-04-12
+ *   [修] .zgc-img-el 改为 position:absolute + inset:0
+ * v1.1  2026-04-12
+ *   [增] container-type: inline-size
+ * v1.0
+ *   独立的图文网格基础样式
+ */
+
+add_action( 'wp_enqueue_scripts', 'zgc_enqueue_css' );
+add_action( 'elementor/preview/enqueue_scripts', 'zgc_enqueue_css' );
+
+function zgc_enqueue_css() {
+    $css = <<<'CSS'
+
+/* ── 网格容器 ── */
+.zgc-grid {
+    display: grid;
+    width: 100%;
+}
+
+/* ── 整张卡片 ── */
+.zgc-card {
+    display: block;
+    position: relative;
+    border-radius: 0px;
+    overflow: hidden;
+    text-decoration: none;
+    -webkit-user-drag: none;
+    cursor: pointer;
+}
+.zgc-card:hover {
+    text-decoration: none;
+}
+
+/* ── 图片容器 ── */
+.zgc-img-wrap {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    container-type: inline-size;
+    aspect-ratio: 83 / 89;
+}
+
+/* ── 图片本体 ── */
+.zgc-img-el {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    transition: transform 0.4s ease;
+}
+
+/* 图片 Hover 放大 */
+.zgc-card:hover .zgc-img-el {
+    transition: transform 0.4s ease;
+}
+
+/* ── 遮罩容器 ── */
+.zgc-mask {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3.2cqw;
+    gap: 0;
+    box-sizing: border-box;
+    background: color-mix(in srgb, var(--zgc-mask-bg, #231515) calc(var(--zgc-mask-opacity, 60) * 1%), transparent);
+    transition: background 0.4s ease, height 0.4s ease;
+}
+.zgc-card:hover .zgc-mask {
+    background: color-mix(in srgb, var(--zgc-mask-bg-hover, #00999e) calc(var(--zgc-mask-bg-hover-opacity, 80) * 1%), transparent);
+}
+
+/* ── 遮罩内部元素 ── */
+.zgc-icon img {
+    width: var(--zgc-icon-size, 7.99cqw);
+    height: auto;
+}
+
+.zgc-quote {
+    margin: 0 0 3.8cqw 0;
+    font-size: var(--zgc-text-size, 5.59cqw);
+    line-height: 1.2em;
+    transition: color 0.4s ease;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.zgc-name {
+    font-size: var(--zgc-name-size, 4.39cqw);
+    font-weight: 700;
+    text-align: right;
+    line-height: 1.2em;
+    transition: color 0.4s ease;
+}
+
+CSS;
+
+    wp_register_style( 'z-grid-card', false );
+    wp_enqueue_style( 'z-grid-card' );
+    wp_add_inline_style( 'z-grid-card', $css );
+}

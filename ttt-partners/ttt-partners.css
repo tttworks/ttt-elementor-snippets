@@ -1,0 +1,163 @@
+/**
+ * ============================================
+ * TTT Partners - CSS 样式
+ * ============================================
+ *
+ * @version     1.0.2
+ * @date        2026-06-29
+ * @author      Aloysius Luo
+ * @organization TTTWORKS
+ * @contact     https://tttworks.com
+ * @description Elementor 合作伙伴展示组件 CSS v1.0.2
+ *
+ * --------------------------------------------
+ * 版本更新日志
+ * --------------------------------------------
+ * v1.0.2 (2026-06-29)
+ *   [修] 移除 .zpt-track 上的 will-change:transform，避免 GPU 合成层导致 overflow:hidden 裁剪失效
+ *   [修] .zpt-wrapper / .zpt-viewport 增加 overflow:hidden 双重保险
+ *   [修] .zpt-page 增加 overflow:hidden + min-width:0 防止 grid 子像素舍入溢出
+ *   [修] .zpt-item-text 增加文本溢出保护（word-break / overflow-wrap）
+ *   [修] .zpt-item 增加 min-width:0 防止 grid item 撑破容器
+ *   [修] .zpt-viewport 增加 contain: paint 隔离布局
+ *
+ * v1.0.1 (2026-06-21)
+ *   [修] .zpt-page / .zpt-flat-grid 显式设置 column-gap/row-gap 引用 CSS 变量，修复间距不生效
+ *   [改] 页码圆点：clip-path 平行四边形（左右边 35° 倾斜），去掉圆角
+ *
+ * v1.0.0 (2026-06-21)
+ *   [新] item 居中布局、图片容器+标题、分隔线、grid 分页、圆点页码、响应式三断点
+ * ============================================
+ */
+
+add_action( 'wp_head', function() {
+?>
+<style>
+
+/* ═══ Wrapper ═══ */
+.zpt-wrapper {
+    width: 100%;
+    overflow: hidden;          /* v1.0.2: 双重保险，确保溢出裁剪 */
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ═══ Viewport ═══ */
+.zpt-carousel .zpt-viewport {
+    width: 100%;
+    overflow: hidden;
+    contain: paint;            /* v1.0.2: 隔离布局，防止子元素溢出影响外部 */
+}
+
+/* ═══ Track ═══ */
+.zpt-carousel .zpt-track {
+    display: flex;
+    flex-wrap: nowrap;
+    /* v1.0.2: 移除 will-change:transform —
+       GPU 合成层会使 overflow:hidden 裁剪失效，导致手机端出现水平溢出滚动条 */
+    transition-property: transform;
+    transition-timing-function: ease;
+}
+.zpt-track.no-transition { transition-duration: 0s !important; }
+
+/* ═══ Page（每页 = 一个网格） ═══ */
+.zpt-page {
+    flex: 0 0 100%;
+    display: grid;
+    box-sizing: border-box;
+    overflow: hidden;          /* v1.0.2: 防止 grid 子像素舍入溢出 */
+    column-gap: var(--zpt-gap-h, 20px);
+    row-gap: var(--zpt-gap-v, 20px);
+}
+
+/* ═══ Flat Grid（平铺模式） ═══ */
+.zpt-flat .zpt-flat-grid {
+    display: grid;
+    box-sizing: border-box;
+    overflow: hidden;
+    column-gap: var(--zpt-gap-h, 20px);
+    row-gap: var(--zpt-gap-v, 20px);
+}
+
+/* ═══ Item 单元 ═══ */
+.zpt-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 0;              /* v1.0.2: 防止 grid item 撑破容器 */
+}
+
+/* ═══ 图片容器 ═══ */
+.zpt-item-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.zpt-item-img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+/* ═══ 分隔线 ═══ */
+.zpt-item-sep {
+    width: 100%;
+    flex-shrink: 0;
+}
+
+/* ═══ 文字 ═══ */
+.zpt-item-text {
+    margin: 0;
+    text-align: center;
+    max-width: 100%;           /* v1.0.2: 不超过父容器 */
+    overflow-wrap: break-word; /* v1.0.2: 长单词换行，防止撑破容器 */
+    word-break: break-word;    /* v1.0.2: 兼容旧浏览器 */
+    hyphens: auto;             /* v1.0.2: 按需断字 */
+}
+
+/* ═══ 页码容器 ═══ */
+.zpt-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--zpt-dot-gap, 5px);
+    margin-top: var(--zpt-pagination-gap, 40px);
+}
+
+/* ═══ 页码圆点 ═══ */
+.zpt-dot {
+    display: block;
+    height: var(--zpt-dot-h, 6px);
+    width: var(--zpt-dot-inactive-w, 12px);
+    border-radius: 0;
+    background: var(--zpt-dot-inactive-bg, rgba(89, 164, 152, 0.4));
+    cursor: pointer;
+    transition: width 0.3s ease, background 0.3s ease;
+    flex-shrink: 0;
+    /* 平行四边形裁切：左右边均向右倾斜 35°（≈ tan(35°) × 6px ≈ 4px 偏移）*/
+    clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+.zpt-dot.active {
+    width: var(--zpt-dot-active-w, 36px);
+    background: var(--zpt-dot-active-bg, rgba(89, 164, 152, 1));
+    cursor: default;
+    clip-path: polygon(4px 0, 100% 0, calc(100% - 4px) 100%, 0 100%);
+}
+
+/* ═══ Tablet ═══ */
+@media (max-width: 1024px) {
+    /* grid cols/rows 由 JS 动态写入 style */
+}
+
+/* ═══ Mobile ═══ */
+@media (max-width: 767px) {
+    /* grid cols/rows 由 JS 动态写入 style */
+}
+
+</style>
+<?php
+} );

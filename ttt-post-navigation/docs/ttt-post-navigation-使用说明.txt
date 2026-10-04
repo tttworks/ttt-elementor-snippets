@@ -1,0 +1,78 @@
+# TTT Post Navigation Widget 使用说明
+
+## 概述
+TTT Post Navigation 是一个用于 Elementor 的自定义文章导航组件，用于在单篇文章页面展示上一篇和下一篇导航链接。
+
+## 文件清单
+- `ttt-post-navigation-php-v1.0.0.txt` - PHP 主程序（注册 widget 和控件）
+- `ttt-post-navigation-css-v1.0.0.txt` - CSS 样式
+- `ttt-post-navigation-js-v1.0.0.txt` - JS 交互脚本
+
+## 功能特性
+1. **HTML 结构**：Flex 布局，2 行 2 列显示
+   - 第 1 行第 1 列：上一篇标签文字（默认"Prev"）
+   - 第 2 行第 1 列：下一篇标签文字（默认"Next"）
+   - 第 1 行第 2 列：上一篇文章标题（带超链接）
+   - 第 2 行第 2 列：下一篇文章标题（带超链接）
+   - 标签列宽度自动对齐
+
+2. **Elementor 面板控件**：
+   - 可自定义上一篇标签文字
+   - 可自定义下一篇标签文字
+   - 始终在同分类导航（可选开关）
+
+3. **样式自定义**：
+   - 容器间距和内边距（响应式）
+   - 标签文字颜色和字体
+   - 链接颜色（默认/悬停状态）
+   - 链接字体和下划线设置
+   - 布局对齐方式
+
+4. **响应式设计**：
+   - Desktop: > 1024px
+   - Tablet: ≤ 1024px
+   - Mobile: ≤ 767px（自动变为垂直布局）
+
+## 安装部署
+1. 在 WordPress 后台安装并激活 **Code Snippets** 插件
+2. 创建 3 个新的 snippet：
+   - **PHP Snippet**（Run everywhere）：
+     - 名称：TTT Post Navigation - PHP
+     - 代码：复制 `ttt-post-navigation-php-v1.0.0.txt` 内容
+   - **CSS Snippet**（Run everywhere）：
+     - 名称：TTT Post Navigation - CSS
+     - 代码：复制 `ttt-post-navigation-css-v1.0.0.txt` 内容
+   - **JS Snippet**（Run everywhere）：
+     - 名称：TTT Post Navigation - JS
+     - 代码：复制 `ttt-post-navigation-js-v1.0.0.txt` 内容
+3. 激活所有 3 个 snippet
+
+## 使用方法
+1. 在 Elementor 编辑器中，打开 Single Post 模板
+2. 搜索 "TTT Post Navigation" widget
+3. 拖拽到合适的位置
+4. 在右侧面板中配置：
+   - 设置上一篇/下一篇标签文字
+   - 开启"始终在同分类"选项（如需要）
+   - 调整样式和布局设置
+
+## 类名命名空间
+所有 HTML class 都使用 `zpn-` 前缀，避免与其他 widget 冲突：
+- `.zpn-navigation` - 导航容器
+- `.zpn-item` - 导航项
+- `.zpn-item-prev` - 上一篇项
+- `.zpn-item-next` - 下一篇项
+- `.zpn-label` - 标签文字
+- `.zpn-link` - 链接
+
+## 版本信息
+- 版本：v1.0.0
+- 日期：2026-06-25
+- 作者：Aloysius Luo
+- 组织：TTTWORKS
+
+## 技术规范
+- 遵循 Elementor Widget 通用开发规范
+- 所有用户输入使用 WordPress 转义函数
+- 支持多语言和 RTL 布局
+- 无障碍访问支持（键盘导航）

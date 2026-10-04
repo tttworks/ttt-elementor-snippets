@@ -1,0 +1,231 @@
+/**
+ * SCF Features Accordion Pro - CSS Styles
+ * 描述: PC端左右分离布局，右侧共享content面板；手机端手风琴样式
+ * 版本: 1.0.7
+ * 日期: 2026-05-11
+ *
+ * 变更记录:
+ * v1.0.7: 手机版手风琴 content 添加 max-height 动画过渡
+ * v1.0.6: 手机版手风琴结构重构
+ */
+
+add_action('wp_head', 'scf_features_accordion_pro_styles');
+add_action('elementor/preview/enqueue_styles', 'scf_features_accordion_pro_styles');
+
+function scf_features_accordion_pro_styles() {
+    static $printed = false;
+    if ($printed) return;
+    $printed = true;
+    ?>
+    <style id="scf-features-accordion-pro-css">
+        .scf-features-accordion-pro {
+            font-family: inherit;
+            overflow: hidden;
+        }
+
+        /* PC Layout */
+        @media (min-width: 768px) {
+            .scf-features-accordion-pro {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .scf-features-accordion-pro-titles {
+                width: 280px;
+                min-width: 280px;
+            }
+
+            .scf-features-accordion-pro-title {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: flex-start;
+                padding: 15px 40px 15px 20px;
+                cursor: pointer;
+                background: #fff;
+                font-weight: normal;
+                transition: background-color 0.3s ease;
+                word-break: break-word;
+                border: 1px solid #e4e4e4;
+                margin-bottom: 10px;
+				font-family: "Montserrat", Sans-serif;
+				position:relative;
+            }
+
+            .scf-features-accordion-pro-title:hover {
+                background: #f9f9f9;
+            }
+
+            .scf-features-accordion-pro-title.is-active {
+                background: #f3f3f5;
+				border:1px solid #f3f3f5;
+            }
+			.scf-features-accordion-pro-title.is-active:before{
+				content:'';
+				display:block;
+				position:absolute;
+				left:0;
+				width:4px;
+				height:100%;
+				top:0;
+				background:#EA5718;
+			}
+
+            .scf-features-accordion-pro-title-text {
+                font-size: 16px;
+                line-height: 1.5;
+                color: #333;
+                flex: 1;
+				font-family: "Montserrat", Sans-serif;
+            }
+
+            .scf-features-accordion-pro-arrow {
+                display: none;
+            }
+
+            .scf-features-accordion-pro-content-panel {
+                flex: 1;
+            }
+
+            .scf-features-accordion-pro-content {
+                display: none;
+                padding: 0 0 0 30px;
+                background: transparent;
+                border: 0;
+                border-left: none;
+                height: 100%;
+            }
+
+            .scf-features-accordion-pro-content.is-active {
+                display: block;
+            }
+
+            .scf-features-accordion-pro-content-inner {
+                font-size: 15px;
+                line-height: 1.7;
+                color: #555;
+				font-family: "Montserrat", Sans-serif;
+            }
+
+            .scf-features-accordion-pro-content-inner img {
+                max-width: 100%;
+                height: auto;
+				width:100%;
+				display:block;
+				margin-bottom:20px;
+            }
+
+            .scf-features-accordion-pro-mobile {
+                display: none;
+            }
+        }
+
+        /* Mobile Layout */
+        @media (max-width: 767px) {
+            .scf-features-accordion-pro {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .scf-features-accordion-pro-titles {
+                display: none;
+            }
+
+            .scf-features-accordion-pro-content-panel {
+                display: none;
+            }
+
+            .scf-features-accordion-pro-mobile {
+                display: block;
+            }
+
+            .scf-features-accordion-pro-item {
+                border: 1px solid #e4e4e4;
+                border-radius: 0;
+                margin-bottom: 5px;
+                overflow: hidden;
+            }
+
+            .scf-features-accordion-pro-item-title {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 15px 40px 15px 20px;
+                cursor: pointer;
+                background: #fff;
+                font-weight: 600;
+                transition: background-color 0.3s ease;
+                word-break: break-word;
+				font-family: "Montserrat", Sans-serif;
+            }
+			.scf-features-accordion-pro-item-title.is-active:before{
+				content:'';
+				display:block;
+				position:absolute;
+				left:0;
+				width:4px;
+				height:100%;
+				top:0;
+				background:#EA5718;
+			}
+
+            .scf-features-accordion-pro-item-title:hover {
+                background: #e4e4e4;
+            }
+
+            .scf-features-accordion-pro-item.is-active > .scf-features-accordion-pro-item-title {
+                background: #f0f0f0;
+            }
+
+            .scf-features-accordion-pro-title-text {
+                font-size: 16px;
+                line-height: 1.5;
+                color: #333;
+				font-family: "Montserrat", Sans-serif;
+            }
+
+            .scf-features-accordion-pro-arrow {
+                position: absolute;
+                right: 15px;
+                width: 8px;
+                height: 8px;
+                border: solid #555;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+                transition: transform 0.25s ease;
+            }
+
+            .scf-features-accordion-pro-item.is-active > .scf-features-accordion-pro-item-title .scf-features-accordion-pro-arrow {
+                transform: rotate(225deg);
+            }
+
+            .scf-features-accordion-pro-item-content {
+                max-height: 0;
+                overflow: hidden;
+                transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+                opacity: 0;
+                background: #fcfcfc;
+				font-family: "Montserrat", Sans-serif;
+            }
+
+            .scf-features-accordion-pro-item.is-active > .scf-features-accordion-pro-item-content {
+                max-height: 2000px;
+                opacity: 1;
+            }
+
+            .scf-features-accordion-pro-item-content .scf-features-accordion-pro-content-inner {
+                padding: 0 20px;
+                font-size: 15px;
+                line-height: 1.7;
+                color: #555;
+				font-family: "Montserrat", Sans-serif;
+            }
+
+            .scf-features-accordion-pro-item.is-active > .scf-features-accordion-pro-item-content .scf-features-accordion-pro-content-inner {
+                padding: 20px;
+            }
+        }
+    </style>
+    <?php
+}
